@@ -12,6 +12,7 @@ const Popup : React.FC<PopupProps> = ({shortURL, setShortURL ,showPopup, setShow
                 <div className="flex float-end">
                     <button className="border 2px" onClick={()=>{
                         setShowPopup(!showPopup)
+                        setShortURL("")
                     }}>x</button>
                 </div>
                 <h2 className="text-xl font-semibold mb-4">This is your short-URL!</h2>

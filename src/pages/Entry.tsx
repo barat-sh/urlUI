@@ -2,6 +2,10 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Popup from "@/store/Popup";
 
+interface ShortURLResponse {
+    shortURL: string;
+}
+
 const Entry = () => {
     const [ longURL, setLongURL ] = useState('');
     const [ shortURL, setShortURL ] = useState('');
@@ -17,7 +21,7 @@ const Entry = () => {
                         "Content-Type" : "application/json"
                     }
                 })
-                const data: Response = await resp.json();
+                const data: ShortURLResponse = await resp.json();
                 setShortURL(() => data.shortURL)
                 setShowPopup(() => !showPopup)
             }else{
