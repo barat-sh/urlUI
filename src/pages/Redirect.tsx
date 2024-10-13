@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 
@@ -8,15 +8,13 @@ interface LongURLResponse {
 
 const Redirect = () => {
     const { id } = useParams();
+    const [longURL, setLongURL] = useState("");
 
     const fetchLongURL = async () => {
         try {
-            const resp = await fetch(`https://urlworkers.barath-elangovan.workers.dev/api/v1/shorturl/${id}`);
-            if (!resp.ok) {
-                throw new Error("Network response was not ok");
-            }
+            const resp = await fetch(`https://urlworkers.barath-elangovan.workers.dev/api/v1/shorturl/12345`);
             const data: LongURLResponse = await resp.json();
-            window.location.href = data.longURL; // Redirecting to the long URL
+            setLongURL(data.longURL);
             console.log("Redirecting to:", data.longURL);
         } catch (err) {
             console.error("Failed to fetch long URL:", err);
@@ -26,6 +24,10 @@ const Redirect = () => {
     useEffect(() => {
         fetchLongURL();
     }, [id]);
+
+    useEffect(()=>{
+        window.location.href = longURL
+    }, [longURL])
 
     return null
 }
