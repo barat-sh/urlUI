@@ -9,19 +9,18 @@ interface LongURLResponse {
 const Redirect = () => {
     const { id } = useParams();
 
-    useLayoutEffect(()=>{
-        async function Fetch(){
-            try{
-                const resp = await fetch(`https://urlworkers.barath-elangovan.workers.dev/api/v1/shorturl/${id}`)
-                const data: LongURLResponse = await resp.json();
-                window.location.href = data.longURL;
-                console.log(data.longURL)
-                
-            }catch(err){
-                console.log(err);
-            }
+    async function Fetch(){
+        try{
+            const resp = await fetch(`https://urlworkers.barath-elangovan.workers.dev/api/v1/shorturl/${id}`)
+            const data: LongURLResponse = await resp.json();
+            console.log(data.longURL)
+            window.location.href = data?.longURL;
+        }catch(err){
+            console.log(err);
         }
+    }
 
+    useLayoutEffect(()=>{
         Fetch();
     }, [])
 
